@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Animate Text</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" http-equiv="Content-Type" content="text/html" charset=utf-8>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
+		$(document).ready(function(){
+			showText();
+			document.getElementById("input").oninput = function() { showText() };
+			
+			function showText(){
+				var x = document.getElementById("input").value;
+				document.getElementById("output").innerHTML = x;
+				$('#output').css("font-family", $("#font").val());
+				$('#output').css("font-size", $("#size").val() + "px");
+			}
+			
+			$("#font").change(function() {
+				$('#output').css("font-family", $(this).val());
+			})
+			$("#size").change(function() {
+				$('#output').css("font-size", $(this).val() + "px");
+			})
+			
+			$("#rotateX").click(function(){
+				$("#output").addClass("rotationX");
+				$("#output").removeClass("rotationY rotationXY");
+			});
+			$("#rotateY").click(function(){
+				$("#output").addClass("rotationY");
+				$("#output").removeClass("rotationX rotationXY");
+			});
+			$("#rotateXY").click(function(){
+				$("#output").addClass("rotationXY");
+				$("#output").removeClass("rotationX rotationY");
+			});
+			
+		});
+		</script>
+        <style>
+			#output{
+				position: relative;
+				left: 100px;
+				top: 100px;
+			}
+			.button-container{
+				margin: 10px;
+			}
+            @-webkit-keyframes rotateY{
+                50% { -webkit-transform: rotateY(-180deg); }
+                100% { -webkit-transform: rotateY(-360deg); }
+            }
+			 @-webkit-keyframes rotateX{
+                50% { -webkit-transform: rotateX(-180deg); }
+                100% { -webkit-transform: rotateX(-360deg); }
+            }
+			@-webkit-keyframes rotateXY{    
+				50% { -webkit-transform:  rotate(180deg) }
+				100% { -webkit-transform:  rotate(360deg) }
+            }			
+			
+			.rotationY{
+                -webkit-animation: rotateY 8s ease-in-out infinite;               				              
+                -webkit-transform-origin: 200px 200px;    
+            }
+			
+			 .rotationX{
+                -webkit-animation: rotateX 8s ease-in-out infinite;               				             
+                -webkit-transform-origin: 200px 200px;    
+            }
+			
+			.rotationXY{
+                -webkit-animation: rotateXY 4s ease-in-out infinite; 
+                -webkit-transform-origin: 50px 0px;    
+            }			
+        </style>
+    </head>
+    <body>
+        <div>
+			<p>Enter some text and click a button to animate. You can also change the font type and size.</p>
+			<form id="form" accept-charset=utf-8 onsubmit="return false" >
+				<label>Font type</label>
+				<select id="font"> 
+					<option value="Arial">Arial</option>
+					<option value="Calibri">Calibri</option>
+					<option value="Helvetica">Helvetica</option>
+					<option value="Impact">Impact</option>
+					<option value="Sans-serif">Sans-serif</option>
+					<option value="Serif">Serif</option>
+					<option value="Times New Roman">Times New Roman</option>
+					<option value="Verdana ">Verdana </option>
+				</select>
+				&nbsp; <label>Font size</label>
+				<select id="size">
+					<option value="10">10</option>
+					<option value="15">15</option>
+					<option value="20">20</option>
+					<option value="25">25</option>
+					<option value="30">30</option>
+					<option value="35">35</option>
+					<option value="40">40</option>
+				</select>
+				<br><label>Enter some text</label>
+				<input type="text" id="input">
+				<div class="button-container">
+					<button id="rotateX">Rotate X</button>
+					<button id="rotateY">Rotate Y</button>
+					<button id="rotateXY">Rotate XY</button>
+				</div>
+			</form>
+			<p id="output"></p>
+		</div>
+    </body>
+</html>
